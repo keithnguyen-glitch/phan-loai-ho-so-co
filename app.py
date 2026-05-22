@@ -4,6 +4,16 @@ import io
 import zipfile
 from pypdf import PdfReader, PdfWriter
 
+# --- ẨN THANH MENU VÀ FOOTER MẶC ĐỊNH CỦA STREAMLIT ---
+hide_st_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            header {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_st_style, unsafe_allow_html=True)
+
 # --- CẤU HÌNH BẢO MẬT ---
 MAT_KHAU_APP = "XNK123" # Đổi mật khẩu tại đây
 GIOI_HAN_SAI = 5        # Số lần nhập sai tối đa
