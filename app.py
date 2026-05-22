@@ -9,7 +9,6 @@ MAT_KHAU_APP = "XNK123" # Đổi mật khẩu tại đây
 GIOI_HAN_SAI = 5        # Số lần nhập sai tối đa
 
 # --- KHỞI TẠO BỘ NHỚ TẠM (SESSION STATE) ---
-# Dùng để ghi nhớ số lần nhập sai giữa các lần tải lại trang
 if 'failed_attempts' not in st.session_state:
     st.session_state.failed_attempts = 0
 if 'locked_out' not in st.session_state:
@@ -29,12 +28,10 @@ else:
 
     if mat_khau_nhap:
         if mat_khau_nhap == MAT_KHAU_APP:
-            # Nhập đúng -> Reset bộ đếm số lần sai về 0
             st.session_state.failed_attempts = 0 
             st.success("🔓 Đăng nhập thành công!")
             st.markdown("Tải lên file PDF chứa nhiều trang, hệ thống sẽ tự động tách và đặt tên theo **Số Hóa Đơn**.")
 
-            # --- LOGIC TÁCH PDF BẮT ĐẦU TỪ ĐÂY ---
             uploaded_file = st.file_uploader("Chọn file PDF gốc tải lên", type="pdf")
 
             if uploaded_file is not None:
@@ -64,12 +61,21 @@ else:
                                     if match:
                                         invoice_num = match.group(0).upper()
                                 
+                                # ĐẶT TÊN FILE GỌN GÀNG THEO YÊU CẦU
                                 if invoice_num:
-                                    filename = f"Invoice_{invoice_num}_Trang{page_num}.pdf"
+                                    filename = f"{invoice_num}.pdf"
                                     success_count += 1
                                 else:
-                                    filename = f"Trang_{page_num}_Khong_Quet_Duoc_So_HD.pdf"
+                                    filename = f"Khong_Quet_Duoc_So_HD_Trang_{page_num}.pdf"
                                     fail_count += 1
+                                
+                                # Xử lý chống mất dữ liệu khi có 2 trang trùng 1 số Hóa đơn
+                                original_filename = filename
+                                counter = 2
+                                while filename in zip_file.namelist():
+                                    name_part = original_filename.replace('.pdf', '')
+                                    filename = f"{name_part}_{counter}.pdf"
+                                    counter += 1
                                     
                                 writer = PdfWriter()
                                 writer.add_page(page)
@@ -88,13 +94,11 @@ else:
                             mime="application/zip"
                         )
         else:
-            # Nhập sai -> Cộng dồn số lần sai
             st.session_state.failed_attempts += 1
             attempts_left = GIOI_HAN_SAI - st.session_state.failed_attempts
             
             if attempts_left > 0:
                 st.error(f"❌ Mật khẩu không chính xác! Bạn còn **{attempts_left}** lần thử.")
             else:
-                # Vượt quá giới hạn -> Khóa ứng dụng và ép tải lại luồng UI
                 st.session_state.locked_out = True
                 st.rerun()
