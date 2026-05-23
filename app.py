@@ -54,14 +54,14 @@ with st.sidebar:
 
 # --- 4. GIAO DIỆN CHÍNH (MAIN CONTENT) ---
 if not st.session_state.authenticated:
-    st.title("🧪 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
+    st.title("📋 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
     st.markdown("*Developed by Department of Group Supply Chain Management | Ching Luh Vietnam*")
     st.markdown("---")
     st.info("👈 Vui lòng xác thực hệ thống ở thanh menu bên trái để tiếp tục.")
     st.stop() # Dừng chạy code bên dưới nếu chưa đăng nhập
 
 # Giao diện khi đã đăng nhập
-st.title("🧪 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
+st.title("📋 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
 st.markdown("*Developed by Department of Group Supply Chain Management | Ching Luh Vietnam*")
 st.markdown("---")
 
