@@ -34,7 +34,7 @@ with st.sidebar:
     st.markdown("## 🔐 Xác Thực Hệ Thống")
     
     if not st.session_state.authenticated:
-        mat_khau_nhap = st.text_input("Nhập mật khẩu của phòng SCM để mở khóa:", type="password")
+        mat_khau_nhap = st.text_input("Nhập mật khẩu của phòng IMEX để mở khóa:", type="password")
         if mat_khau_nhap:
             if mat_khau_nhap == MAT_KHAU_APP:
                 st.session_state.authenticated = True
@@ -55,14 +55,14 @@ with st.sidebar:
 # --- 4. GIAO DIỆN CHÍNH (MAIN CONTENT) ---
 if not st.session_state.authenticated:
     st.title("📋 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
-    st.markdown("*Developed by Department of Group Supply Chain Management | Ching Luh Vietnam*")
+    st.markdown("*Developed by Department of Import Export | Ching Luh Vietnam*")
     st.markdown("---")
     st.info("👈 Vui lòng xác thực hệ thống ở thanh menu bên trái để tiếp tục.")
     st.stop() # Dừng chạy code bên dưới nếu chưa đăng nhập
 
 # Giao diện khi đã đăng nhập
 st.title("📋 HỆ THỐNG TÁCH & GỘP FILE C/O TỰ ĐỘNG")
-st.markdown("*Developed by Department of Group Supply Chain Management | Ching Luh Vietnam*")
+st.markdown("*Developed by Department of Import Export | Ching Luh Vietnam*")
 st.markdown("---")
 
 st.markdown("### 📁 Xử lý hàng loạt tài liệu C/O")
