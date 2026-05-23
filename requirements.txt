@@ -1,3 +1,6 @@
 streamlit
 pypdf
 pandas
+pdf2image
+pytesseract
+Pillow
