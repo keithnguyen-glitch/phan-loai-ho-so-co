@@ -28,7 +28,7 @@ hide_st_style = """
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # --- 2. CẤU HÌNH BẢO MẬT & TRẠNG THÁI ---
-MAT_KHAU_APP = "Handangne" 
+MAT_KHAU_APP = "ngaygiongbao" 
 
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
